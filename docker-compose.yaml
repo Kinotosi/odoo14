@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  odoo:
+    container_name: odoo
+    build: 
+      context: ./apps
+      dockerfile: Dockerfile
+    image: odoo:14.0.1
+    depends_on:
+      - db-odoo
+    ports:
+      - "8069:8069"
+    volumes:
+      - ./apps/addons:/extra-addons
+      - ./apps/config:/config
+      - ./apps/odoo:/odoo
+    restart: unless-stopped
+  db-odoo:
+    image: postgres:12
+    container_name: db-odoo
+    ports:
+      - "5440:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=myodoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data/pgdata
+    restart: unless-stopped
+
+volumes:
+  postgresql-data:
+    driver: local
