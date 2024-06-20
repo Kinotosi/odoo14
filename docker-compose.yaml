@@ -20,7 +20,7 @@ services:
     image: postgres:12
     container_name: db-odoo
     ports:
-      - "5440:5432"
+      - "5432:5432"
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_PASSWORD=myodoo
