@@ -10,7 +10,7 @@ services:
     depends_on:
       - db-odoo
     ports:
-      - "8000:8069"
+      - "8069:8069"
     volumes:
       - ./apps/addons:/extra-addons
       - ./apps/config:/config
